@@ -1,2 +1,9 @@
 # U-PICK
-This is a Repository for THUNDER FORCE that have been working on a Android Project App for Software Engineering Class. 
+THUNDER FORCE:
+Jesus Garcia
+Mark Ajina
+Ricardo Carillo 
+Andre Obispo
+Frida V.
+
+This Repository is about an app that chooses a location of a resturaunt/fast food place for your indescive booty cheeks. 
