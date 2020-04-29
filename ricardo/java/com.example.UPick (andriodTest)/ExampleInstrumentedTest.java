@@ -25,4 +25,3 @@ public class ExampleInstrumentedTest {
         assertEquals("com.example.upick", appContext.getPackageName());
     }
 }
-
