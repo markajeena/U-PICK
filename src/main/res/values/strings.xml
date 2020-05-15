@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">UPick</string>
+    <string name="title_activity_go_to_restaurant">Map</string>
+    <string name="title_activity_finding_restaurants">Map</string>
+</resources>
