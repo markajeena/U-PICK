@@ -33,6 +33,7 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
     String data;
     Context context;
 
+
     public GetNearbyPlaces(Context context) {
         this.context = context;
     }
@@ -71,6 +72,8 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
 
     @Override
     public void onPostExecute(String s) {
+        GoToRestaurant goToRestaurant = new GoToRestaurant();
+
         try {
             JSONObject parentObject = new JSONObject(s);
             JSONArray resultsArray = parentObject.getJSONArray("results");
@@ -78,7 +81,6 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
             int rand = (int)(Math.random()*resultsArray.length());
 
             for(int i = 0; i < resultsArray.length(); i++){
-                GoToRestaurant goToRestaurant = new GoToRestaurant();
                 JSONObject jsonObject = resultsArray.getJSONObject(i);
                 JSONObject locationObj = jsonObject.getJSONObject("geometry").getJSONObject("location");
 
@@ -92,14 +94,14 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
 
                 LatLng latLng = new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
 
-                MarkerOptions markerOptions = new MarkerOptions();
-                markerOptions.title(name_restaurant);
-                markerOptions.position(latLng);
-                if(i == rand){
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                }
 
-                mMap.addMarker(markerOptions);
+                if(i == rand){
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    markerOptions.title(name_restaurant);
+                    markerOptions.position(latLng);
+                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    mMap.addMarker(markerOptions);
+                }
 
 
             }
