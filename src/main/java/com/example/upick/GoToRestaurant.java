@@ -51,7 +51,8 @@ public class GoToRestaurant extends FragmentActivity implements
     LocationRequest request;
     GoogleApiClient googleApiClient;
     LatLng latlngCurrent;
-
+    ArrayList<String> namesList;
+    int miles = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +66,10 @@ public class GoToRestaurant extends FragmentActivity implements
     }
 
     public void findRestaurants(View v){
+        mMap.clear();
         StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         stringBuilder.append("location="+latlngCurrent.latitude + ","+latlngCurrent.longitude);
-        stringBuilder.append("&radius="+1000);
+        stringBuilder.append("&radius="+miles);
         stringBuilder.append("&keyword="+"restaurants");
         stringBuilder.append("&key="+getResources().getString(R.string.google_maps_key));
 
