@@ -12,7 +12,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.upick.GoToRestaurant" />
+        tools:context="com.example.upick.GoToRestaurantViaLocation" />
 
     <Button
         android:id="@+id/find_restaurants"
@@ -35,12 +35,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="179dp"
         android:layout_marginBottom="226dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        />
 
 
 </RelativeLayout>

@@ -53,7 +53,7 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
     }
-        private void configurePickButton(){
+    private void configurePickButton(){
         Button nextButton = (Button)findViewById(R.id.randompick);
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,27 +1,21 @@
 package com.example.upick;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -29,16 +23,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
 
 public class GoToRestaurant extends FragmentActivity implements
         OnMapReadyCallback,
@@ -51,8 +39,8 @@ public class GoToRestaurant extends FragmentActivity implements
     LocationRequest request;
     GoogleApiClient googleApiClient;
     LatLng latlngCurrent;
-    ArrayList<String> namesList;
-    int miles = 1000;
+    Marker urhere;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +55,21 @@ public class GoToRestaurant extends FragmentActivity implements
 
     public void findRestaurants(View v){
         mMap.clear();
+
+        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latlngCurrent,15);
+        mMap.animateCamera(update);
+
+        urhere = mMap.addMarker(new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                        .position(latlngCurrent)
+                        .title("You Are Here")
+        );
+
         StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
         stringBuilder.append("location="+latlngCurrent.latitude + ","+latlngCurrent.longitude);
-        stringBuilder.append("&radius="+miles);
+        stringBuilder.append("&radius="+1000);
         stringBuilder.append("&keyword="+"restaurants");
-        stringBuilder.append("&key="+getResources().getString(R.string.google_maps_key));
+        stringBuilder.append("&key="+"AIzaSyDHGi2yUfBsZZrOvsLaYSuUYUIdf0qOKCU");
 
         String url = stringBuilder.toString();
 
@@ -81,6 +79,7 @@ public class GoToRestaurant extends FragmentActivity implements
 
         GetNearbyPlaces getNearbyPlaces = new GetNearbyPlaces(this);
         getNearbyPlaces.execute(dataTransfer);
+
 
     }
 
@@ -104,29 +103,41 @@ public class GoToRestaurant extends FragmentActivity implements
             Toast.makeText(getApplicationContext(),"Location Not Found.",Toast.LENGTH_SHORT).show();
         }
         else{
+
+
             latlngCurrent = new LatLng(location.getLatitude(),location.getLongitude());
 
-            CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latlngCurrent,15);
-            mMap.animateCamera(update);
 
-            MarkerOptions options = new MarkerOptions();
-            options.position(latlngCurrent);
-            options.title("You Are Here");
-            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-            mMap.addMarker(options);
+
+
+            if(urhere != null)
+            {
+                urhere.setPosition(latlngCurrent);
+            }
+            else
+            {
+                    CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latlngCurrent,15);
+                    mMap.animateCamera(update);
+                    urhere = mMap.addMarker(new MarkerOptions()
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                    .position(latlngCurrent)
+                    .title("You Are Here")
+                );
+            }
         }
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         request = new LocationRequest().create();
-        request.setInterval(1000);
+        request.setInterval(50);
         request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         if(ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
 
-        return;
+            return;
         }
+
 
         LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient,request,this);
 

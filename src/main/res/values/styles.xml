@@ -8,8 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-<style name="AppTheme.CustomPopUpTheme" parent="Theme.AppCompat.Light.NoActionBar"> //theme for pop-up window
-    <item name="android:windowIsTranslucent">true</item>
-</style>
+    <style name="AppTheme.CustomPopUpTheme" parent="Theme.AppCompat.Light.NoActionBar"> //theme for pop-up window
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 
 </resources>

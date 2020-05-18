@@ -4,9 +4,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -33,7 +37,6 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
     String data;
     Context context;
 
-
     public GetNearbyPlaces(Context context) {
         this.context = context;
     }
@@ -57,7 +60,7 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
                 stringBuilder.append(line);
             }
 
-        data = stringBuilder.toString();
+            data = stringBuilder.toString();
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -71,9 +74,7 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
     }
 
     @Override
-    public void onPostExecute(String s) {
-        GoToRestaurant goToRestaurant = new GoToRestaurant();
-
+    protected void onPostExecute(String s) {
         try {
             JSONObject parentObject = new JSONObject(s);
             JSONArray resultsArray = parentObject.getJSONArray("results");
@@ -81,6 +82,7 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
             int rand = (int)(Math.random()*resultsArray.length());
 
             for(int i = 0; i < resultsArray.length(); i++){
+                GoToRestaurant goToRestaurant = new GoToRestaurant();
                 JSONObject jsonObject = resultsArray.getJSONObject(i);
                 JSONObject locationObj = jsonObject.getJSONObject("geometry").getJSONObject("location");
 
@@ -95,13 +97,24 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
                 LatLng latLng = new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
 
 
-                if(i == rand){
-                    MarkerOptions markerOptions = new MarkerOptions();
-                    markerOptions.title(name_restaurant);
-                    markerOptions.position(latLng);
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                    mMap.addMarker(markerOptions);
+                Marker marker = mMap.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title(name_restaurant)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                        );
+
+                    if(i != rand)
+                {
+                    marker.remove();
                 }
+
+                    else if(i==rand)
+                    {
+                        CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latLng,15);
+                        mMap.animateCamera(update);
+                    }
+
+
 
 
             }

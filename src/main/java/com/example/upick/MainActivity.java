@@ -1,7 +1,6 @@
 package com.example.upick;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
         LoadScreen loadScreen = new LoadScreen();
         loadScreen.start();
 
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            Intent intent = new Intent(MainActivity.this,HomeScreen.class);
+            Intent intent = new Intent(MainActivity.this,PermissionActivity.class);
             startActivity(intent);
             MainActivity.this.finish();
         }
