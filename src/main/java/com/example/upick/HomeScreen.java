@@ -24,15 +24,8 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
 
         configurePickButton();
-        configureGetLocationButton();
 
         optionsButtonClick = (ImageButton) findViewById(R.id.options);
-
-
-        if(ContextCompat.checkSelfPermission(HomeScreen.this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) { //checking for location permission
-            Intent intentPopUpScreen = new Intent(HomeScreen.this, LocationPopUp.class);
-            startActivity(intentPopUpScreen);
-        }
 
         optionsButtonClick.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,15 +37,6 @@ public class HomeScreen extends AppCompatActivity {
 
     }
 
-    private void configureGetLocationButton() {
-        Button getLocationButton = (Button) findViewById(R.id.setlocation);
-        getLocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomeScreen.this, LocationPage.class));
-            }
-        });
-    }
     private void configurePickButton(){
         Button nextButton = (Button)findViewById(R.id.randompick);
         nextButton.setOnClickListener(new View.OnClickListener() {

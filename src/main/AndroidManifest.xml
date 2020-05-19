@@ -36,11 +36,7 @@
         <activity
             android:name=".GoToRestaurant"
             android:label="@string/title_activity_go_to_restaurant" />
-        <activity
-            android:name=".LocationPopUp"
-            android:theme="@style/AppTheme.CustomPopUpTheme" />
         <activity android:name=".OptionsMenu" />
-        <activity android:name=".LocationPage" />
         <activity android:name=".HomeScreen" />
         <activity android:name=".PermissionActivity"/>
         <activity android:name=".MainActivity">

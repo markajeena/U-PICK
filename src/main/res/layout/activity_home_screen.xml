@@ -20,27 +20,15 @@
 
     <Button
         android:id="@+id/randompick"
-        android:layout_width="120dp"
-        android:layout_height="59dp"
+        android:layout_width="151dp"
+        android:layout_height="98dp"
         android:text="Pick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.278"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75" />
-
-    <Button
-        android:id="@+id/setlocation"
-        android:layout_width="125dp"
-        android:layout_height="60dp"
-        android:text="SET LOCATION"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.765"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.751" />
+        app:layout_constraintVertical_bias="0.726" />
 
     <TextView
         android:id="@+id/greettext"
