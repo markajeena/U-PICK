@@ -11,4 +11,4 @@ Andre Obispo
 
 Frida V.
 
-This Repository is about an app that chooses a location of a resturaunt/fast food place for your indescive booty cheeks. 
+This Repository is about an app that chooses a location of a resturaunt/fast food place for your indescive significant other. 
