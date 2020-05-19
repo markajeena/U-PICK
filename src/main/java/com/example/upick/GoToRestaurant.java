@@ -1,32 +1,32 @@
 package com.example.upick;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+        import android.Manifest;
+        import android.content.pm.PackageManager;
+        import android.location.Location;
+        import android.os.Bundle;
+        import android.view.View;
+        import android.widget.TextView;
+        import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
+        import androidx.annotation.NonNull;
+        import androidx.annotation.Nullable;
+        import androidx.core.app.ActivityCompat;
+        import androidx.fragment.app.FragmentActivity;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
+        import com.google.android.gms.common.ConnectionResult;
+        import com.google.android.gms.common.api.GoogleApiClient;
+        import com.google.android.gms.location.LocationListener;
+        import com.google.android.gms.location.LocationRequest;
+        import com.google.android.gms.location.LocationServices;
+        import com.google.android.gms.maps.CameraUpdate;
+        import com.google.android.gms.maps.CameraUpdateFactory;
+        import com.google.android.gms.maps.GoogleMap;
+        import com.google.android.gms.maps.OnMapReadyCallback;
+        import com.google.android.gms.maps.SupportMapFragment;
+        import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+        import com.google.android.gms.maps.model.LatLng;
+        import com.google.android.gms.maps.model.Marker;
+        import com.google.android.gms.maps.model.MarkerOptions;
 
 public class GoToRestaurant extends FragmentActivity implements
         OnMapReadyCallback,
@@ -54,15 +54,16 @@ public class GoToRestaurant extends FragmentActivity implements
     }
 
     public void findRestaurants(View v){
+        Toast.makeText(getApplicationContext(),"Selecting Restaurant",Toast.LENGTH_SHORT).show();
         mMap.clear();
 
         CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latlngCurrent,15);
         mMap.animateCamera(update);
 
         urhere = mMap.addMarker(new MarkerOptions()
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                        .position(latlngCurrent)
-                        .title("You Are Here")
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                .position(latlngCurrent)
+                .title("You Are Here")
         );
 
         StringBuilder stringBuilder = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
@@ -80,7 +81,8 @@ public class GoToRestaurant extends FragmentActivity implements
         GetNearbyPlaces getNearbyPlaces = new GetNearbyPlaces(this);
         getNearbyPlaces.execute(dataTransfer);
 
-
+        Toast.makeText(getApplicationContext(),"Click the Green Restaurant Marker to View Selected Restaurant.",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Then Click on the Bottom Right Google Icon to Map to this Restaurant or Pick Again!",Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -116,12 +118,12 @@ public class GoToRestaurant extends FragmentActivity implements
             }
             else
             {
-                    CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latlngCurrent,15);
-                    mMap.animateCamera(update);
-                    urhere = mMap.addMarker(new MarkerOptions()
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                    .position(latlngCurrent)
-                    .title("You Are Here")
+                CameraUpdate update = CameraUpdateFactory.newLatLngZoom(latlngCurrent,15);
+                mMap.animateCamera(update);
+                urhere = mMap.addMarker(new MarkerOptions()
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                        .position(latlngCurrent)
+                        .title("You Are Here")
                 );
             }
         }
